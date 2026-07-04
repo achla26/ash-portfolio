@@ -1,11 +1,54 @@
 // src/data/projects.ts
-import { Project, ProjectMetric, ProjectInsight, ProjectCategory } from "@/types";
+import { Project, ProjectMetric, ProjectInsight } from "@/types";
 
-// ============================================
-// ALL PROJECTS
-// ============================================
 export const allProjects: Project[] = [
-  // --- DATA & AI PROJECTS (Featured) ---
+  // ============================================
+  // AI & DATA PROJECTS (Featured)
+  // ============================================
+  {
+    id: "rag-handbook",
+    title: "AI Handbook Q&A System",
+    description:
+      "Production-ready Q&A system using Retrieval-Augmented Generation (RAG). Achieved 100% accuracy on test queries with 1.01s average latency. Implemented three guardrails: citation validation, hallucination detection, and confidence scoring. Automated regression testing pipeline for iterative updates.",
+    category: "AI/ML",
+    techStack: ["Python", "LangChain", "Qdrant", "FastAPI", "Streamlit", "Groq"],
+    features: [
+      "100% accuracy on test queries",
+      "1.01s average latency",
+      "Citation validation guardrail",
+      "Hallucination detection",
+      "Confidence scoring system",
+      "FastAPI REST backend",
+      "Streamlit chat interface",
+      "Automated regression testing pipeline",
+    ],
+    github: "https://github.com/achla26/handbook-rag",
+    featured: true,
+    status: "completed",
+    year: "2024",
+  },
+  {
+    id: "resume-matcher",
+    title: "AI Resume Matcher",
+    description:
+      "Live AI-powered tool where users paste a job description and their resume to get a match score and specific improvement suggestions. Built and deployed within one day - demonstrates ability to ship fast with AI APIs.",
+    category: "AI/ML",
+    techStack: ["Python", "Streamlit", "Groq API"],
+    features: [
+      "Job description analysis",
+      "Resume parsing & scoring",
+      "Match percentage calculation",
+      "Specific improvement suggestions",
+      "Live deployed tool",
+      "Built and shipped in one day",
+      "Clean Streamlit interface",
+      "AI-powered recommendations",
+    ],
+    github: "https://github.com/achla26/resume-matcher",
+    featured: true,
+    status: "completed",
+    year: "2024",
+  },
   {
     id: "walmart-analysis",
     title: "Walmart Sales Analysis",
@@ -51,28 +94,6 @@ export const allProjects: Project[] = [
     year: "2024",
   },
   {
-    id: "rag-handbook",
-    title: "AI Handbook Q&A System",
-    description:
-      "Production-ready Q&A system using Retrieval-Augmented Generation (RAG). Achieved 100% accuracy on test queries with 1.01s average latency. Implemented three guardrails: citation validation, hallucination detection, and confidence scoring.",
-    category: "AI/ML",
-    techStack: ["Python", "LangChain", "Qdrant", "FastAPI", "Streamlit", "Groq"],
-    features: [
-      "100% accuracy on test queries",
-      "1.01s average latency",
-      "Citation validation guardrail",
-      "Hallucination detection",
-      "Confidence scoring system",
-      "FastAPI REST backend",
-      "Streamlit chat interface",
-      "Automated evaluation pipeline",
-    ],
-    github: "https://github.com/achla26/handbook-rag",
-    featured: true,
-    status: "completed",
-    year: "2024",
-  },
-  {
     id: "eda-toolkit",
     title: "EDA Automation Library",
     description:
@@ -95,7 +116,30 @@ export const allProjects: Project[] = [
     year: "2024",
   },
 
-  // --- WEB DEVELOPMENT PROJECTS ---
+  // ============================================
+  // WEB DEVELOPMENT PROJECTS
+  // ============================================
+  {
+    id: "home-services",
+    title: "Home Services Marketplace",
+    description:
+      "React Native marketplace app allowing homeowners to browse, book and manage home services. Features service listings, provider profiles, booking flow, and JWT authentication. Laravel REST API backend. Collaborating with a UI/UX designer.",
+    category: "Web Development",
+    techStack: ["React Native", "Laravel", "MySQL", "REST API", "JWT"],
+    features: [
+      "Service listings & search",
+      "Provider profiles",
+      "Booking flow",
+      "JWT authentication",
+      "Laravel REST API backend",
+      "UI/UX designer collaboration",
+      "Cross-platform mobile app",
+      "Active development",
+    ],
+    featured: false,
+    status: "in-progress",
+    year: "2024",
+  },
   {
     id: "poker-app",
     title: "Whispering Shouts",
@@ -116,7 +160,51 @@ export const allProjects: Project[] = [
     link: "https://whisperingshouts.com/",
     featured: false,
     status: "completed",
-    year: "2024",
+    year: "2023",
+  },
+  {
+    id: "catking",
+    title: "Catking.in EdTech Platform",
+    description:
+      "EdTech platform built with Laravel and Vue.js for online learning and exam preparation. Features course management, student dashboards, and content delivery systems for educational institutions.",
+    category: "Web Development",
+    techStack: ["Laravel", "Vue.js", "MySQL", "REST API"],
+    features: [
+      "Course management",
+      "Student dashboards",
+      "Content delivery",
+      "User authentication",
+      "REST API backend",
+      "Admin panel",
+      "Progress tracking",
+      "Exam preparation tools",
+    ],
+    link: "https://catking.in/",
+    featured: false,
+    status: "completed",
+    year: "2023",
+  },
+  {
+    id: "brew-my-idea",
+    title: "Brew My Idea",
+    description:
+      "Client web application built during tenure at NJ Graphica. Full-stack development with Laravel backend, featuring custom business logic and client-facing interfaces.",
+    category: "Web Development",
+    techStack: ["Laravel", "MySQL", "JavaScript", "Bootstrap"],
+    features: [
+      "Custom business logic",
+      "Client-facing interface",
+      "Admin dashboard",
+      "User management",
+      "Responsive design",
+      "Database optimization",
+      "API integration",
+      "Deployment & maintenance",
+    ],
+    link: "https://brewmyidea.com/",
+    featured: false,
+    status: "completed",
+    year: "2023",
   },
   {
     id: "medical-app",
@@ -138,7 +226,7 @@ export const allProjects: Project[] = [
     link: "https://level3echoportal.com/",
     featured: false,
     status: "completed",
-    year: "2024",
+    year: "2023",
   },
   {
     id: "ecom",
@@ -160,7 +248,7 @@ export const allProjects: Project[] = [
     link: "https://www.globehost.xyz/templets/theme1/demo3/",
     featured: false,
     status: "completed",
-    year: "2023",
+    year: "2022",
   },
   {
     id: "youtube-clone",
@@ -174,21 +262,21 @@ export const allProjects: Project[] = [
       "Search functionality",
       "API integration",
       "Responsive design",
-      "User authentication",
-      "Comments system",
       "Pagination",
       "Content discovery",
+      "Material-UI components",
+      "API data handling",
     ],
     link: "https://youtube-clone-rapid-api.netlify.app/",
     featured: false,
     status: "completed",
-    year: "2024",
+    year: "2023",
   },
   {
     id: "jassi-photography",
     title: "Jassi Photography",
     description:
-      "Professional photography portfolio website with elegant showcase of photography work. Features responsive design, image galleries, and smooth user experience for displaying professional photography services.",
+      "Professional photography portfolio website with elegant showcase of photography work. Features responsive design, image galleries, and smooth user experience.",
     category: "Web Development",
     techStack: ["HTML", "CSS", "JavaScript", "PHP"],
     features: [
@@ -204,7 +292,7 @@ export const allProjects: Project[] = [
     link: "https://jassiphotography.com/",
     featured: false,
     status: "completed",
-    year: "2023",
+    year: "2022",
   },
   {
     id: "food-app",
@@ -226,7 +314,7 @@ export const allProjects: Project[] = [
     link: "https://webgenix.jassiphotography.com/online_food/",
     featured: false,
     status: "completed",
-    year: "2023",
+    year: "2021",
   },
 ];
 
@@ -251,18 +339,19 @@ export const getProjectById = (id: string): Project | undefined => {
 };
 
 export const getHomeProjects = (): Project[] => {
-  // Show 3 featured on homepage
-  return getFeaturedProjects().slice(0, 3);
+  return allProjects.filter((p) => p.id !== "rag-handbook").slice(0, 3);
 };
 
 export const getProjectType = (
   id: string
 ): { type: string; isPersonal: boolean } => {
   const personalIds = [
+    "rag-handbook",
+    "resume-matcher",
     "walmart-analysis",
     "sql-warehouse",
-    "rag-handbook",
     "eda-toolkit",
+    "youtube-clone",
   ];
   return personalIds.includes(id)
     ? { type: "Personal Project", isPersonal: true }
@@ -283,6 +372,18 @@ export const getProjectRole = (category: string): string => {
 // PROJECT METRICS
 // ============================================
 export const projectMetrics: Record<string, ProjectMetric[]> = {
+  "rag-handbook": [
+    { label: "Test Accuracy", value: "100%" },
+    { label: "Avg Latency", value: "1.01s" },
+    { label: "Guardrails", value: "3 Active" },
+    { label: "Citation Rate", value: "100%" },
+  ],
+  "resume-matcher": [
+    { label: "Time to Ship", value: "1 Day" },
+    { label: "AI Provider", value: "Groq" },
+    { label: "Interface", value: "Streamlit" },
+    { label: "Status", value: "Live" },
+  ],
   "walmart-analysis": [
     { label: "Records Analyzed", value: "6,400+" },
     { label: "Stores Covered", value: "45" },
@@ -294,12 +395,6 @@ export const projectMetrics: Record<string, ProjectMetric[]> = {
     { label: "Schema Type", value: "Star" },
     { label: "ETL Procedures", value: "Yes" },
     { label: "Quality Checks", value: "Built-in" },
-  ],
-  "rag-handbook": [
-    { label: "Test Accuracy", value: "100%" },
-    { label: "Avg Latency", value: "1.01s" },
-    { label: "Guardrails", value: "3 Active" },
-    { label: "Citation Rate", value: "100%" },
   ],
   "eda-toolkit": [
     { label: "Modules", value: "5" },
@@ -313,10 +408,30 @@ export const projectMetrics: Record<string, ProjectMetric[]> = {
 // PROJECT INSIGHTS
 // ============================================
 export const projectInsights: Record<string, ProjectInsight> = {
+  "rag-handbook": {
+    title: "System Guardrails",
+    items: [
+      "Citation Validator: Checks if [Source X] references point to real retrieved sources",
+      "Hallucination Detector: Compares each sentence against context using semantic similarity",
+      "Confidence Scorer: HIGH (>0.6) answers confidently, LOW (<0.3) triggers 'I don't know'",
+      "FastAPI backend with health, ingest, query, and stats endpoints",
+      "Automated regression testing for iterative updates",
+    ],
+  },
+  "resume-matcher": {
+    title: "How It Works",
+    items: [
+      "User pastes a job description and their resume",
+      "Groq API analyzes both documents for keyword and skill matching",
+      "Returns a match percentage score",
+      "Provides specific suggestions on what to add or improve",
+      "Deployed live - demonstrates fast shipping with AI APIs",
+    ],
+  },
   "walmart-analysis": {
     title: "Key Business Insights",
     items: [
-      "Top performing store (Store 20) generates 8.1x more revenue than bottom performer (Store 33)",
+      "Top performing store (Store 20) generates 8.1x more revenue than bottom performer",
       "Stores in high unemployment areas (8.5%+) underperform by 18% on average",
       "November-December generates 14.6% higher sales, contributing $54M extra annually",
       "No significant correlation (0.009) between fuel prices and sales",
@@ -331,16 +446,6 @@ export const projectInsights: Record<string, ProjectInsight> = {
       "Gold layer: Business-ready dimensions and facts as views",
       "Stored procedures with RAISE NOTICE for progress tracking",
       "Comprehensive quality checks at Silver and Gold layers",
-    ],
-  },
-  "rag-handbook": {
-    title: "System Guardrails",
-    items: [
-      "Citation Validator: Checks if [Source X] references point to real retrieved sources",
-      "Hallucination Detector: Compares each sentence against context using semantic similarity",
-      "Confidence Scorer: HIGH (>0.6) answers confidently, LOW (<0.3) triggers 'I don't know'",
-      "FastAPI backend with health, ingest, query, and stats endpoints",
-      "Streamlit UI for interactive chat interface",
     ],
   },
   "eda-toolkit": {

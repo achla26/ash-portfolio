@@ -1,3 +1,4 @@
+// src/data/about.ts
 import { NowItem } from "@/types";
 
 export const aboutParagraphs = [
@@ -9,10 +10,11 @@ export const aboutQuote =
   "I like projects where the backend logic and the AI layer both have to be right - not just impressive in a demo.";
 
 export const nowItems: NowItem[] = [
-  { bold: "Shipping", text: "a RAG document Q&A project end-to-end" },
+  { bold: "Building", text: "a React Native home services marketplace app" },
+  { bold: "Shipped", text: "AI Resume Matcher - built and deployed in one day" },
   {
     bold: "Reading",
     text: "AI Engineering (Chip Huyen) & Designing Data-Intensive Applications",
   },
-  { bold: "Studying", text: "for an AWS certification" },
+  { bold: "Certified", text: "Docker, Datacom & Deloitte job simulations" },
 ];

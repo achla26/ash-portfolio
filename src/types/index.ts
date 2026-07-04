@@ -56,7 +56,15 @@ export interface ProjectInsight {
 export interface ExperienceItem {
   date: string;
   title: string;
+  location: string;
   description: string;
+  highlights: string[];
+}
+
+export interface Certification {
+  title: string;
+  issuer: string;
+  date: string;
 }
 
 export interface Principle {

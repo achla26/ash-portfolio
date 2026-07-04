@@ -34,7 +34,7 @@ export function Work() {
         </ScrollReveal>
       </Container>
 
-      {/* Featured project — RAG pipeline style */}
+      {/* Featured project - RAG pipeline style */}
       <FeaturedProject />
 
       {/* Project cards grid */}

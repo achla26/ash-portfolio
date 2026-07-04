@@ -256,20 +256,20 @@ function TerminalCard() {
   const [typedLines, setTypedLines] = useState<string[]>([]);
 
 
-  const lines: string[] = [
-    "$ whoami",
-    "Achla - full-stack & ai engineer",
-    " ",
-    "$ cat stack.txt",
-    "laravel · react · node.js",
-    "python · langgraph · chromadb",
-    " ",
-    "$ echo $STATUS",
-    "open to opportunities ✓",
-    " ",
-    "$ cat work.txt",
-    "freelancing + seeking roles",
-  ];
+const lines: string[] = [
+  "$ whoami",
+  "Achla - full-stack & ai developer",
+  " ",
+  "$ cat stack.txt",
+  "laravel · react · nextjs · node.js",
+  "python · langchain · qdrant · fastapi · chromadb",
+  " ",
+  "$ cat experience.txt",
+  "5+ years · 15+ projects · 3 companies",
+  " ",
+  "$ echo $STATUS",
+  "freelancing + open to roles ✓",
+];
 
   useEffect(() => {
     let currentLine = 0;
