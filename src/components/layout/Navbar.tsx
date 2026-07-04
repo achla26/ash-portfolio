@@ -229,7 +229,7 @@ export function Navbar() {
                     Based in Christchurch, NZ
                   </p>
                   <p className="font-mono text-[0.72rem] text-slate m-0">
-                    Open to remote - US/EU timezones
+                    Open to remote 
                   </p>
                 </motion.div>
               </div>

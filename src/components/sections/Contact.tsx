@@ -25,7 +25,7 @@ export function Contact() {
             </h2>
             <p className="text-paper-dim max-w-[46ch] mx-auto mb-[30px]">
               Open to mid-level full-stack and AI engineering roles in
-              Christchurch and remote, across US/EU. Also available for
+              Christchurch and remote. Also available for
               freelance projects. Reach out directly - I read everything myself.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">

@@ -51,7 +51,7 @@ export const demoChunks: DemoChunk[] = [
   },
   {
     id: "c9",
-    text: "Open to mid-level full-stack and AI engineering roles in Christchurch and remote, across US/EU timezones. Also available for freelance projects.",
+    text: "Open to mid-level full-stack and AI engineering roles in Christchurch and remote. Also available for freelance projects.",
     tags: ["remote", "open", "roles", "work", "location", "freelance"],
   },
   {
