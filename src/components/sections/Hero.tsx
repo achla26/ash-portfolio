@@ -103,7 +103,7 @@ function HeadlineReveal() {
       <h1 className="font-display text-[clamp(2.8rem,5.6vw,4.6rem)] font-bold leading-[1.15] m-0 mb-7 tracking-[-0.02em]">
         I build software
         <br />
-        that <span className="gradient-text italic font-medium">thinks</span> —
+        that <span className="gradient-text italic font-medium">thinks</span> -
         and ships.
       </h1>
     );

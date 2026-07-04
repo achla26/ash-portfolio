@@ -1,3 +1,5 @@
+// src/types/index.ts
+
 export interface NavLink {
   label: string;
   href: string;
@@ -22,30 +24,33 @@ export interface SkillEdge {
 }
 
 export interface Project {
-  number: string;
+  id: string;
   title: string;
   description: string;
-  tags: string[];
-  linkLabel: string;
-  linkHref: string;
+  category: ProjectCategory;
+  techStack: string[];
+  features: string[];
+  github?: string;
+  link?: string;
+  featured: boolean;
+  status: "completed" | "in-progress";
+  year: string;
 }
 
-export interface FeaturedProjectData {
-  title: string;
-  description: string;
-  badge: string;
-  pipeline: PipelineStep[];
-  metrics: Metric[];
-}
+export type ProjectCategory =
+  | "Data Analysis"
+  | "Data Engineering"
+  | "AI/ML"
+  | "Web Development";
 
-export interface PipelineStep {
+export interface ProjectMetric {
   label: string;
-  icon: string;
-}
-
-export interface Metric {
   value: string;
-  label: string;
+}
+
+export interface ProjectInsight {
+  title: string;
+  items: string[];
 }
 
 export interface ExperienceItem {

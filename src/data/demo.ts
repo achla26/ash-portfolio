@@ -1,10 +1,11 @@
+// src/data/demo.ts
 import { DemoChunk, DemoPreset } from "@/types";
 
 export const demoPresets: DemoPreset[] = [
   { label: "AI tools?", query: "what AI tools does Achla use?" },
   { label: "Backend stack?", query: "what is Achla's backend stack?" },
+  { label: "Data projects?", query: "what data projects has Achla built?" },
   { label: "Open to remote?", query: "is Achla open to remote work?" },
-  { label: "Recent work?", query: "what has Achla shipped recently?" },
 ];
 
 export const demoChunks: DemoChunk[] = [
@@ -15,47 +16,47 @@ export const demoChunks: DemoChunk[] = [
   },
   {
     id: "c2",
-    text: "Day-to-day stack is Python, PHP/Laravel, React, and Node.js. Over the last stretch moved deliberately into applied AI - building RAG systems, agent graphs with LangGraph, and chatbots backed by ChromaDB.",
-    tags: ["stack", "backend", "ai", "rag", "laravel", "react", "node"],
+    text: "Day-to-day stack is PHP/Laravel, React, and Node.js. Also works with Python for data analysis and AI - building RAG systems, LangChain pipelines, and data warehouses.",
+    tags: ["stack", "backend", "ai", "rag", "laravel", "react", "node", "python"],
   },
   {
     id: "c3",
-    text: "Currently freelancing independently - scoping and delivering everything from client-facing web applications to strategy decks and full digital audits for local businesses.",
+    text: "Currently freelancing independently - scoping and delivering client-facing web applications, data analysis projects, and digital audits for local businesses.",
     tags: ["freelance", "independent", "strategy"],
   },
   {
     id: "c4",
-    text: "Currently shipping a RAG document Q&A project end-to-end. Reading AI Engineering (Chip Huyen) and Designing Data-Intensive Applications. Studying for an AWS certification.",
-    tags: ["current", "rag", "aws", "learning", "recent"],
+    text: "Built a production-ready RAG Q&A system using LangChain, Qdrant, and FastAPI with 100% accuracy on test queries and 1.01s average latency. Implements three guardrails: citation validation, hallucination detection, and confidence scoring.",
+    tags: ["rag", "ai", "langchain", "qdrant", "fastapi", "project", "recent"],
   },
   {
     id: "c5",
-    text: "Built a retrieval-augmented question-answering tool over uploaded documents using ChromaDB as the vector store, with chunk and rerank retrieval strategy in Python.",
-    tags: ["rag", "chromadb", "python", "ai", "project"],
+    text: "Analyzed Walmart sales data across 45 stores using Python, Pandas, and SQL. Discovered 8.1x revenue gap between top and bottom stores and $54M annual holiday revenue impact.",
+    tags: ["data", "analysis", "python", "sql", "pandas", "walmart", "project"],
   },
   {
     id: "c6",
-    text: "Built a multi-step conversational agent using LangGraph that routes between retrieval, tool calls, and clarifying questions instead of answering single-shot.",
-    tags: ["langgraph", "chatbot", "agent", "ai", "project"],
+    text: "Designed and built a SQL data warehouse with Bronze→Silver→Gold architecture, ETL stored procedures, star schema, and comprehensive data quality checks using PostgreSQL and Docker.",
+    tags: ["data", "engineering", "sql", "warehouse", "etl", "postgresql", "project"],
   },
   {
     id: "c7",
-    text: "Open to mid-level full-stack and AI engineering roles in Christchurch and remote, across US/EU timezones.",
-    tags: ["remote", "open", "roles", "work", "location"],
+    text: "Created a reusable Python EDA automation library with 5 modules: data summarization, missing value analysis, outlier detection (IQR and Z-score), visualization generation, and automated HTML reports.",
+    tags: ["data", "python", "eda", "library", "analysis", "project"],
   },
   {
     id: "c8",
-    text: "AI tools used: LangGraph, ChromaDB, RAG pipelines, Python for AI/ML, embeddings, vector search, chatbot systems.",
-    tags: ["ai", "tools", "langgraph", "chromadb", "rag", "python", "embeddings"],
+    text: "Built full-stack web applications including a poker platform (Laravel/Vue.js/WebSockets), medical research portal (Laravel), ecommerce platform (Laravel/Stripe), and photography portfolio.",
+    tags: ["web", "laravel", "fullstack", "vue", "project", "client"],
   },
   {
     id: "c9",
-    text: "Backend stack: PHP, Laravel, Node.js, Python. Frontend: React, JavaScript, HTML/CSS.",
-    tags: ["backend", "stack", "laravel", "php", "node", "python", "react", "frontend"],
+    text: "Open to mid-level full-stack and AI engineering roles in Christchurch and remote, across US/EU timezones. Also available for freelance projects.",
+    tags: ["remote", "open", "roles", "work", "location", "freelance"],
   },
   {
     id: "c10",
-    text: "Freelance project: delivered a web strategy presentation and analysis for an NZ enterprise banking client, proposing UX and technical improvements to their home lending experience.",
-    tags: ["freelance", "strategy", "shipped", "recent", "nz", "client"],
+    text: "AI and data tools used: Python, LangChain, Qdrant, FastAPI, Streamlit, Groq, Pandas, NumPy, Matplotlib, Seaborn, PostgreSQL, SQL, Jupyter notebooks.",
+    tags: ["ai", "tools", "data", "python", "langchain", "qdrant", "sql"],
   },
 ];
