@@ -64,26 +64,26 @@ export const certifications = [
 export const toolbox = [
   {
     category: "Languages",
-    items: ["PHP", "JavaScript", "TypeScript", "Python", "SQL"],
+    items: ["PHP", "JavaScript", "TypeScript", "Python", "SQL" , "JAVA"],
   },
   {
     category: "Backend",
-    items: ["Laravel", "Node.js", "FastAPI", "REST APIs"],
+    items: ["Laravel", "Node.js", "FastAPI", "REST APIs" ,"Express"],
   },
   {
     category: "Frontend",
-    items: ["React", "Vue.js", "React Native", "Tailwind", "HTML/CSS"],
+    items: ["React", "Vue.js", "React Native", "Tailwind", "HTML/CSS" ,"Next JS"],
   },
   {
     category: "AI / Data",
-    items: ["LangChain", "Qdrant", "Groq", "Pandas", "NumPy", "Streamlit"],
+    items: ["LangChain", "Qdrant", "Groq", "Pandas", "NumPy", "Streamlit" ,"Langgrapg" ,"Crew AI"],
   },
   {
     category: "Databases",
-    items: ["MySQL", "PostgreSQL", "Qdrant"],
+    items: ["MySQL", "PostgreSQL", "Qdrant" ,"MongoDB" ,"SqlLite"],
   },
   {
     category: "Tools",
-    items: ["Git", "Docker", "VS Code", "Linux", "Jupyter"],
+    items: ["Git", "Docker", "VS Code", "Linux", "Jupyter" ,"AWS" ,"Claude"],
   },
 ];

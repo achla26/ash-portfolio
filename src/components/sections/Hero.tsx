@@ -5,73 +5,9 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { StatItem } from "@/components/ui/StatItem";
+import { GridWarpField } from "../effects/GridWrapField";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { heroEyebrow, heroLede, heroStats } from "@/data/hero";
-
-// --- Subtle animated grid background ---
-function GridBackground() {
-  return (
-    <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-      {/* Gradient mesh */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: [
-            "radial-gradient(ellipse 800px 600px at 70% 20%, rgba(212,162,76,0.08), transparent 60%)",
-            "radial-gradient(ellipse 600px 500px at 20% 80%, rgba(155,122,140,0.06), transparent 60%)",
-            "radial-gradient(ellipse 500px 400px at 90% 90%, rgba(127,169,160,0.04), transparent 60%)",
-          ].join(", "),
-        }}
-      />
-
-      {/* Subtle grid lines */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(236,228,214,0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(236,228,214,0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      {/* Floating accent dots */}
-      <motion.div
-        className="absolute w-[6px] h-[6px] rounded-full bg-amber/40"
-        style={{ top: "20%", left: "75%" }}
-        animate={{ y: [0, -15, 0], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute w-[4px] h-[4px] rounded-full bg-mauve/30"
-        style={{ top: "60%", left: "85%" }}
-        animate={{ y: [0, -10, 0], opacity: [0.3, 0.6, 0.3] }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
-      <motion.div
-        className="absolute w-[5px] h-[5px] rounded-full bg-signal/30"
-        style={{ top: "75%", left: "65%" }}
-        animate={{ y: [0, -12, 0], opacity: [0.3, 0.5, 0.3] }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-      />
-
-      {/* Decorative line */}
-      <div className="absolute top-0 right-[30%] w-px h-full bg-gradient-to-b from-transparent via-line to-transparent opacity-40" />
-      <div className="absolute top-0 right-[60%] w-px h-full bg-gradient-to-b from-transparent via-line to-transparent opacity-20" />
-    </div>
-  );
-}
 
 // --- Status indicator ---
 function StatusBadge() {
@@ -137,10 +73,11 @@ function HeadlineReveal() {
             return (
               <motion.span
                 key={wordIndex}
-                className={`inline-block mr-[0.3em] ${item.isGradient
+                className={`inline-block mr-[0.3em] ${
+                  item.isGradient
                     ? "gradient-text italic font-medium"
                     : ""
-                  }`}
+                }`}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -159,80 +96,99 @@ function HeadlineReveal() {
   );
 }
 
+
 // --- Main Hero ---
 export function Hero() {
   const reduced = useReducedMotion();
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden py-16 md:py-20">
-      <GridBackground />
+      {/* Particle background */}
+      <GridWarpField />
+
+      {/* Gradient overlays on top of particles */}
+      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: [
+              "radial-gradient(ellipse 800px 600px at 70% 20%, rgba(212,162,76,0.06), transparent 60%)",
+              "radial-gradient(ellipse 600px 500px at 20% 80%, rgba(155,122,140,0.04), transparent 60%)",
+            ].join(", "),
+          }}
+        />
+        {/* Bottom fade to ink */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ink to-transparent" />
+      </div>
 
       <Container className="relative z-[2] w-full">
-        <div className="max-w-[720px]">
-          {/* Status */}
-          <StatusBadge />
+        {/* Two column layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-12 xl:gap-16 items-center">
+          {/* Left — content */}
+          <div className="max-w-[720px]">
+            <StatusBadge />
 
-          {/* Eyebrow */}
-          <motion.span
-            className="font-mono text-[0.78rem] tracking-[0.08em] uppercase text-paper-dim/70 flex items-center gap-[10px] mb-6"
-            initial={reduced ? {} : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <span className="w-8 h-px bg-amber" />
-            {heroEyebrow}
-          </motion.span>
+            <motion.span
+              className="font-mono text-[0.78rem] tracking-[0.08em] uppercase text-paper-dim/70 flex items-center gap-[10px] mb-6"
+              initial={reduced ? {} : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <span className="w-8 h-px bg-amber" />
+              {heroEyebrow}
+            </motion.span>
 
-          {/* Headline */}
-          <HeadlineReveal />
+            <HeadlineReveal />
 
-          {/* Lede */}
-          <motion.p
-            className="text-[1.1rem] leading-[1.7] text-paper-dim max-w-[54ch] m-0 mb-10"
-            initial={reduced ? {} : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
-            {heroLede}
-          </motion.p>
+            <motion.p
+              className="text-[1.1rem] leading-[1.7] text-paper-dim max-w-[54ch] m-0 mb-10"
+              initial={reduced ? {} : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+            >
+              {heroLede}
+            </motion.p>
 
-          {/* Actions */}
+            <motion.div
+              className="flex gap-[14px] mb-14 flex-wrap"
+              initial={reduced ? {} : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.05, duration: 0.6 }}
+            >
+              <Button href="#demo" variant="primary">
+                Try the live demo →
+              </Button>
+              <Button href="#work" variant="ghost">
+                See the work
+              </Button>
+            </motion.div>
+
+            <motion.div
+              className="flex gap-10 flex-wrap pt-6 border-t border-line max-sm:gap-6"
+              initial={reduced ? {} : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+            >
+              {heroStats.map((stat) => (
+                <StatItem
+                  key={stat.label}
+                  value={stat.value}
+                  label={stat.label}
+                />
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right — terminal */}
           <motion.div
-            className="flex gap-[14px] mb-14 flex-wrap"
-            initial={reduced ? {} : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.05, duration: 0.6 }}
+            className="hidden xl:flex items-center justify-center"
+            initial={reduced ? {} : { opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.4, duration: 0.8, ease: "easeOut" }}
           >
-            <Button href="#demo" variant="primary">
-              Try the live demo →
-            </Button>
-            <Button href="#work" variant="ghost">
-              See the work
-            </Button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            className="flex gap-10 flex-wrap pt-6 border-t border-line max-sm:gap-6"
-            initial={reduced ? {} : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-          >
-            {heroStats.map((stat, i) => (
-              <StatItem key={stat.label} value={stat.value} label={stat.label} />
-            ))}
+            <TerminalCard />
           </motion.div>
         </div>
-
-        {/* Right side decorative element */}
-        <motion.div
-          className="hidden xl:block absolute right-8 top-1/2 -translate-y-1/2"
-          initial={reduced ? {} : { opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-        >
-          <TerminalCard />
-        </motion.div>
       </Container>
 
       {/* Scroll cue */}
@@ -248,10 +204,7 @@ export function Hero() {
     </section>
   );
 }
-
-// --- Terminal-style card (right side decorative element) ---
-// Replace the TerminalCard function in src/components/sections/Hero.tsx
-
+// --- Terminal Card ---
 function TerminalCard() {
   const [typedLines, setTypedLines] = useState<string[]>([]);
 

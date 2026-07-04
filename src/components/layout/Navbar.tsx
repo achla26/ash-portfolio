@@ -11,20 +11,49 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  // Track scroll for header style
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Track active section on scroll (homepage only)
+  useEffect(() => {
+    if (!isHome) return;
+
+    const sections = navLinks
+      .map((link) => document.querySelector(link.href))
+      .filter(Boolean) as Element[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isHome]);
+
+  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
+  // Close on escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
@@ -35,93 +64,129 @@ export function Navbar() {
 
   const handleLinkClick = () => setIsOpen(false);
 
-  // Resolve href - if on /projects page, link back to home sections
   const resolveHref = (href: string) => {
     if (isHome) return href;
     return `/${href}`;
+  };
+
+  const isLinkActive = (href: string) => {
+    if (href === "/projects") return pathname === "/projects";
+    if (isHome) return activeSection === href;
+    return false;
   };
 
   return (
     <>
       <header
         className={cn(
-          "sticky top-0 z-50 backdrop-blur-[14px] border-b transition-all duration-300",
+          "sticky top-0 z-50 border-b transition-all duration-500",
           scrolled
-            ? "bg-ink/80 border-line-strong shadow-[0_1px_20px_rgba(0,0,0,0.3)]"
-            : "bg-ink/[0.68] border-line"
+            ? "bg-ink/85 backdrop-blur-xl border-line-strong shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            : "bg-ink/50 backdrop-blur-md border-transparent"
         )}
       >
-        <nav className="flex items-center justify-between py-[18px] px-8 max-w-content mx-auto max-md:px-5 max-md:py-4">
+        <nav className="flex items-center justify-between py-4 px-8 max-w-content mx-auto max-md:px-5">
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-[1.35rem] font-semibold relative z-[60] no-underline"
+            className="font-display text-[1.35rem] font-semibold relative z-[60] no-underline group"
           >
-            Achla<span className="text-amber">.</span>dev
+            <span className="relative">
+              Achla
+              <span className="text-amber transition-colors duration-300 group-hover:text-amber-soft">
+                .
+              </span>
+              dev
+            </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <ul className="hidden lg:flex gap-[30px] list-none m-0 p-0">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={resolveHref(link.href)}
-                  className={cn(
-                    "font-mono text-[0.78rem] tracking-[0.06em] uppercase no-underline",
-                    "text-paper-dim relative pb-[3px]",
-                    "after:content-[''] after:absolute after:left-0 after:right-full after:bottom-0",
-                    "after:h-px after:bg-amber after:transition-[right] after:duration-300 after:ease-out",
-                    "hover:text-paper hover:after:right-0"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            {/* Projects page link */}
-            <li>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center">
+            {/* Nav pill container */}
+            <div className="flex items-center bg-ink-2/60 border border-line rounded-full px-1 py-1 gap-[2px]">
+              {navLinks.map((link) => {
+                const active = isLinkActive(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={resolveHref(link.href)}
+                    className={cn(
+                      "relative font-mono text-[0.72rem] tracking-[0.05em] uppercase no-underline",
+                      "px-4 py-[7px] rounded-full transition-colors duration-200",
+                      active
+                        ? "text-ink"
+                        : "text-paper-dim hover:text-paper"
+                    )}
+                  >
+                    {/* Active pill background */}
+                    {active && (
+                      <motion.span
+                        layoutId="navPill"
+                        className="absolute inset-0 bg-amber rounded-full"
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.label}</span>
+                  </Link>
+                );
+              })}
+
+              {/* Projects link */}
               <Link
                 href="/projects"
                 className={cn(
-                  "font-mono text-[0.78rem] tracking-[0.06em] uppercase no-underline",
-                  "relative pb-[3px]",
-                  "after:content-[''] after:absolute after:left-0 after:bottom-0",
-                  "after:h-px after:bg-amber after:transition-[right] after:duration-300 after:ease-out",
+                  "relative font-mono text-[0.72rem] tracking-[0.05em] uppercase no-underline",
+                  "px-4 py-[7px] rounded-full transition-colors duration-200",
                   pathname === "/projects"
-                    ? "text-amber after:right-0"
-                    : "text-paper-dim after:right-full hover:text-paper hover:after:right-0"
+                    ? "text-ink"
+                    : "text-paper-dim hover:text-paper"
                 )}
               >
-                Projects
+                {pathname === "/projects" && (
+                  <motion.span
+                    layoutId="navPill"
+                    className="absolute inset-0 bg-amber rounded-full"
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 30,
+                    }}
+                  />
+                )}
+                <span className="relative z-10">Projects</span>
               </Link>
-            </li>
-          </ul>
+            </div>
 
-          {/* Desktop CTA */}
-          <Link
-            href={isHome ? "#contact" : "/#contact"}
-            className={cn(
-              "hidden lg:inline-flex font-mono text-[0.78rem] no-underline text-ink bg-amber",
-              "py-[9px] px-[18px] rounded-[5px] font-semibold",
-              "transition-colors duration-200 ease-out",
-              "hover:bg-amber-soft"
-            )}
-          >
-            Get in touch
-          </Link>
+            {/* CTA Button */}
+            <Link
+              href={isHome ? "#contact" : "/#contact"}
+              className={cn(
+                "ml-5 font-mono text-[0.72rem] tracking-[0.04em] no-underline",
+                "text-ink bg-amber px-5 py-[8px] rounded-full font-semibold",
+                "transition-all duration-300 ease-out",
+                "hover:bg-amber-soft hover:shadow-[0_4px_20px_rgba(212,162,76,0.3)]"
+              )}
+            >
+              Get in touch
+            </Link>
+          </div>
 
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden relative z-[60] w-10 h-10 flex items-center justify-center rounded-lg border border-line-strong hover:border-amber transition-colors"
+            className="lg:hidden relative z-[60] w-10 h-10 flex items-center justify-center rounded-full border border-line-strong hover:border-amber hover:bg-amber/[0.05] transition-all duration-200"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
-            <div className="w-5 h-4 relative flex flex-col justify-between">
+            <div className="w-[18px] h-[14px] relative flex flex-col justify-between">
               <span
                 className={cn(
                   "block h-[1.5px] w-full bg-paper rounded-full transition-all duration-300 origin-center",
-                  isOpen && "rotate-45 translate-y-[7.25px]"
+                  isOpen && "rotate-45 translate-y-[6.25px]"
                 )}
               />
               <span
@@ -133,7 +198,7 @@ export function Navbar() {
               <span
                 className={cn(
                   "block h-[1.5px] w-full bg-paper rounded-full transition-all duration-300 origin-center",
-                  isOpen && "-rotate-45 -translate-y-[7.25px]"
+                  isOpen && "-rotate-45 -translate-y-[6.25px]"
                 )}
               />
             </div>
@@ -145,8 +210,9 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-[55] bg-ink/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[55] bg-ink/70 backdrop-blur-sm lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -155,6 +221,7 @@ export function Navbar() {
               aria-hidden="true"
             />
 
+            {/* Panel */}
             <motion.div
               className="fixed top-0 right-0 bottom-0 z-[56] w-full max-w-[380px] bg-ink-2 border-l border-line-strong lg:hidden overflow-y-auto"
               initial={{ x: "100%" }}
@@ -168,38 +235,51 @@ export function Navbar() {
                     {[
                       ...navLinks,
                       { label: "Projects", href: "/projects" },
-                    ].map((link, i) => (
-                      <motion.li
-                        key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.05 }}
-                      >
-                        <Link
-                          href={
-                            link.href.startsWith("/")
-                              ? link.href
-                              : resolveHref(link.href)
-                          }
-                          onClick={handleLinkClick}
-                          className={cn(
-                            "block py-4 px-4 rounded-lg font-mono text-[0.9rem] tracking-[0.04em] uppercase",
-                            "text-paper-dim no-underline",
-                            "hover:text-paper hover:bg-paper/[0.04]",
-                            "transition-all duration-200",
-                            "border-b border-line"
-                          )}
+                    ].map((link, i) => {
+                      const active = isLinkActive(link.href);
+                      return (
+                        <motion.li
+                          key={link.href}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 + i * 0.05 }}
                         >
-                          <span className="text-amber mr-3 text-[0.75rem]">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          {link.label}
-                        </Link>
-                      </motion.li>
-                    ))}
+                          <Link
+                            href={
+                              link.href.startsWith("/")
+                                ? link.href
+                                : resolveHref(link.href)
+                            }
+                            onClick={handleLinkClick}
+                            className={cn(
+                              "block py-4 px-4 rounded-xl font-mono text-[0.88rem] tracking-[0.04em] uppercase no-underline transition-all duration-200 border-b border-line",
+                              active
+                                ? "text-amber bg-amber/[0.06]"
+                                : "text-paper-dim hover:text-paper hover:bg-paper/[0.03]"
+                            )}
+                          >
+                            <span
+                              className={cn(
+                                "mr-3 text-[0.72rem]",
+                                active ? "text-amber" : "text-slate"
+                              )}
+                            >
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            {link.label}
+                            {active && (
+                              <span className="float-right text-amber text-[0.7rem]">
+                                ●
+                              </span>
+                            )}
+                          </Link>
+                        </motion.li>
+                      );
+                    })}
                   </ul>
                 </nav>
 
+                {/* CTA */}
                 <motion.div
                   className="mt-8"
                   initial={{ opacity: 0, y: 10 }}
@@ -209,16 +289,13 @@ export function Navbar() {
                   <Link
                     href={isHome ? "#contact" : "/#contact"}
                     onClick={handleLinkClick}
-                    className={cn(
-                      "block text-center font-mono text-[0.85rem] no-underline text-ink bg-amber",
-                      "py-[14px] px-6 rounded-lg font-semibold",
-                      "hover:bg-amber-soft transition-colors duration-200"
-                    )}
+                    className="block text-center font-mono text-[0.85rem] no-underline text-ink bg-amber py-[14px] px-6 rounded-xl font-semibold hover:bg-amber-soft transition-colors duration-200"
                   >
                     Get in touch
                   </Link>
                 </motion.div>
 
+                {/* Footer */}
                 <motion.div
                   className="mt-8 pt-6 border-t border-line"
                   initial={{ opacity: 0 }}
@@ -229,7 +306,7 @@ export function Navbar() {
                     Based in Christchurch, NZ
                   </p>
                   <p className="font-mono text-[0.72rem] text-slate m-0">
-                    Open to remote 
+                    Open to remote — US/EU timezones
                   </p>
                 </motion.div>
               </div>
