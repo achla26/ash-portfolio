@@ -137,11 +137,10 @@ function HeadlineReveal() {
             return (
               <motion.span
                 key={wordIndex}
-                className={`inline-block mr-[0.3em] ${
-                  item.isGradient
+                className={`inline-block mr-[0.3em] ${item.isGradient
                     ? "gradient-text italic font-medium"
                     : ""
-                }`}
+                  }`}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -336,7 +335,10 @@ function TerminalCard() {
         <motion.span
           className="inline-block w-[7px] h-[14px] bg-amber mt-1"
           animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.8, repeat: Infinity, ease: "steps(1)" }}
+          transition={{
+            duration: 0.8, repeat: Infinity, ease: "linear",
+            repeatDelay: 0.4
+          }}
         />
       </div>
     </div>

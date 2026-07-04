@@ -27,7 +27,7 @@ export function ProjectCard({
       ref={tiltRef}
       data-tilt
       className="bg-card backdrop-blur-[12px] border border-line-strong rounded-[14px] p-6 transition-all duration-300 ease-out hover:border-amber hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.6)] will-change-transform flex flex-col h-full"
-      style={{ transformStyle: "preserve3d" }}
+      style={{ transformStyle: "preserve-3d" }}
     >
       {/* Top row: number + category */}
       <div className="flex items-center justify-between mb-4">
