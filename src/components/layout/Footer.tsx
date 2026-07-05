@@ -1,5 +1,3 @@
-import { Logo } from "../ui/Logo";
-
 export function Footer() {
   const year = new Date().getFullYear();
 

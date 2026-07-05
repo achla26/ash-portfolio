@@ -8,7 +8,7 @@ import { StatItem } from "@/components/ui/StatItem";
 import { SignalLines } from "@/components/effects/SignalLines";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { heroEyebrow, heroLede, heroStats } from "@/data/hero";
-import { GridWarp } from "../effects/GridWrap";
+import { GridWarp } from "@/components/effects/GridWrap";
 // --- Status indicator ---
 function StatusBadge() {
   return (

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-import { Logo } from "../ui/Logo";
+import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
