@@ -90,7 +90,7 @@ export function Navbar() {
           <div className="relative z-[60]">
             <Logo href="/" size="md" />
           </div>
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation */} 
           <div className="hidden lg:flex items-center">
             {/* Nav pill container */}
             <div className="flex items-center bg-ink-2/60 border border-line rounded-full px-1 py-1 gap-[2px]">
@@ -149,9 +149,29 @@ export function Navbar() {
                 )}
                 <span className="relative z-10">Projects</span>
               </Link>
+
+              <Link
+                href="/notes"
+                className={cn(
+                  "relative font-mono text-[0.72rem] tracking-[0.05em] uppercase no-underline",
+                  "px-4 py-[7px] rounded-full transition-colors duration-200",
+                  pathname === "/notes"
+                    ? "text-ink"
+                    : "text-paper-dim hover:text-paper"
+                )}
+              >
+                {pathname === "/notes" && (
+                  <motion.span
+                    layoutId="navPill"
+                    className="absolute inset-0 bg-amber rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">Notes</span>
+              </Link>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <Link
               href={isHome ? "#contact" : "/#contact"}
               className={cn(
@@ -225,6 +245,7 @@ export function Navbar() {
                     {[
                       ...navLinks,
                       { label: "Projects", href: "/projects" },
+                      { label: "Notes", href: "/notes" },
                     ].map((link, i) => {
                       const active = isLinkActive(link.href);
                       return (

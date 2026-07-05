@@ -1,4 +1,3 @@
-// src/data/navigation.ts
 import { NavLink } from "@/types";
 
 export const navLinks: NavLink[] = [
