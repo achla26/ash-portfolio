@@ -64,7 +64,7 @@ export const certifications = [
 export const toolbox = [
   {
     category: "Languages",
-    items: ["PHP", "JavaScript", "TypeScript", "Python", "SQL" , "JAVA"],
+    items: ["PHP", "JavaScript", "TypeScript", "Python", "SQL" , "Java"],
   },
   {
     category: "Backend",
@@ -76,7 +76,7 @@ export const toolbox = [
   },
   {
     category: "AI / Data",
-    items: ["LangChain", "Qdrant", "Groq", "Pandas", "NumPy", "Streamlit" ,"Langgrapg" ,"Crew AI"],
+    items: ["LangChain", "Qdrant", "Groq", "Pandas", "NumPy", "Streamlit" ,"LangGraph" ,"CrewAI"],
   },
   {
     category: "Databases",
