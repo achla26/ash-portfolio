@@ -129,7 +129,7 @@ export function GridWarpField() {
           orb.targetY +
           Math.cos(t * orb.speed * 1.3 + orb.phase) * 40;
 
-        // Mouse influence on orbs — subtle attraction
+        // Mouse influence on orbs - subtle attraction
         if (hasMouse) {
           const dx = mx - orb.x;
           const dy = my - orb.y;
@@ -211,7 +211,7 @@ export function GridWarpField() {
             Math.sin(t * 0.015 + col * 0.3 + row * 0.3) * 0.05;
           const finalAlpha = Math.max(0.05, dotAlpha + pulse);
 
-          // Check if dot is near an orb — tint the color
+          // Check if dot is near an orb - tint the color
           orbsRef.current.forEach((orb) => {
             const dx = x - orb.x;
             const dy = y - orb.y;

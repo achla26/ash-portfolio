@@ -4,7 +4,7 @@ import { ExperienceItem } from "@/types";
 export const experiences: ExperienceItem[] = [
   {
     date: "Jan 2024 – Present",
-    title: "Freelance Full Stack & AI Developer",
+    title: "Freelance Full Stack & AI Engineer",
     location: "Christchurch, NZ",
     description:
       "Building a React Native home services marketplace app with Laravel REST API backend. Built and deployed a live AI Resume Matcher using Python, Streamlit and Groq API. Shipped a production RAG Q&A system with LangChain, FastAPI, and Qdrant. Developed end-to-end data analysis projects with stakeholder-ready reporting.",

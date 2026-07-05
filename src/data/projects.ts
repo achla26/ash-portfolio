@@ -362,7 +362,7 @@ export const getProjectRole = (category: string): string => {
   const roles: Record<string, string> = {
     "Data Analysis": "Data Analyst",
     "Data Engineering": "Data Engineer",
-    "AI/ML": "AI Developer",
+    "AI/ML": "AI Engineer",
     "Web Development": "Full-Stack Developer",
   };
   return roles[category] || "Developer";

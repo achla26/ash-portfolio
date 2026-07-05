@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { StatItem } from "@/components/ui/StatItem";
-import { GridWarpField } from "../effects/GridWrapField";
+import { SignalLines } from "@/components/effects/SignalLines";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { heroEyebrow, heroLede, heroStats } from "@/data/hero";
-
+import { GridWarp } from "../effects/GridWrap";
 // --- Status indicator ---
 function StatusBadge() {
   return (
@@ -29,34 +29,27 @@ function StatusBadge() {
   );
 }
 
-// --- Word by word reveal for headline --- 
-
+// --- Word by word reveal for headline ---
 function HeadlineReveal() {
   const reduced = useReducedMotion();
 
   if (reduced) {
     return (
       <h1 className="font-display text-[clamp(2.8rem,5.6vw,4.6rem)] font-bold leading-[1.15] m-0 mb-7 tracking-[-0.02em]">
-        I build software
+        Backend that works.
         <br />
-        that <span className="gradient-text italic font-medium">thinks</span> -
-        and ships.
+        AI that <span className="gradient-text italic font-medium">doesn&apos;t lie</span>.
       </h1>
     );
   }
 
   const lines: { word: string; isGradient?: boolean }[][] = [
+    [{ word: "Backend" }, { word: "that" }, { word: "works." }],
     [
-      { word: "I" },
-      { word: "build" },
-      { word: "software" },
-    ],
-    [
+      { word: "AI" },
       { word: "that" },
-      { word: "thinks", isGradient: true },
-      { word: "-" },
-      { word: "and" },
-      { word: "ships." },
+      { word: "doesn't", isGradient: true },
+      { word: "lie.", isGradient: true },
     ],
   ];
 
@@ -73,11 +66,8 @@ function HeadlineReveal() {
             return (
               <motion.span
                 key={wordIndex}
-                className={`inline-block mr-[0.3em] ${
-                  item.isGradient
-                    ? "gradient-text italic font-medium"
-                    : ""
-                }`}
+                className={`inline-block mr-[0.3em] ${item.isGradient ? "gradient-text italic font-medium" : ""
+                  }`}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -96,35 +86,33 @@ function HeadlineReveal() {
   );
 }
 
-
 // --- Main Hero ---
 export function Hero() {
   const reduced = useReducedMotion();
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden py-16 md:py-20">
-      {/* Particle background */}
-      <GridWarpField />
+      {/* AI Signal Lines background - dialed back so it stays behind the copy */}
+      <div className="absolute inset-0 z-0 opacity-60">
+        <GridWarp />
+        <SignalLines />
+      </div>
 
-      {/* Gradient overlays on top of particles */}
+      {/* Gradient overlays - slightly stronger left fade so headline reads clean */}
       <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
-            background: [
-              "radial-gradient(ellipse 800px 600px at 70% 20%, rgba(212,162,76,0.06), transparent 60%)",
-              "radial-gradient(ellipse 600px 500px at 20% 80%, rgba(155,122,140,0.04), transparent 60%)",
-            ].join(", "),
+            background:
+              "linear-gradient(90deg, rgba(10,14,19,0.95) 0%, rgba(10,14,19,0.75) 40%, transparent 65%)",
           }}
         />
-        {/* Bottom fade to ink */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ink to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-ink to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-ink/60 to-transparent" />
       </div>
 
       <Container className="relative z-[2] w-full">
-        {/* Two column layout */}
         <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-12 xl:gap-16 items-center">
-          {/* Left — content */}
           <div className="max-w-[720px]">
             <StatusBadge />
 
@@ -156,7 +144,7 @@ export function Hero() {
               transition={{ delay: 1.05, duration: 0.6 }}
             >
               <Button href="#demo" variant="primary">
-                Try the live demo →
+                Try the live retrieval demo →
               </Button>
               <Button href="#work" variant="ghost">
                 See the work
@@ -170,16 +158,11 @@ export function Hero() {
               transition={{ delay: 1.2, duration: 0.6 }}
             >
               {heroStats.map((stat) => (
-                <StatItem
-                  key={stat.label}
-                  value={stat.value}
-                  label={stat.label}
-                />
+                <StatItem key={stat.label} value={stat.value} label={stat.label} />
               ))}
             </motion.div>
           </div>
 
-          {/* Right — terminal */}
           <motion.div
             className="hidden xl:flex items-center justify-center"
             initial={reduced ? {} : { opacity: 0, x: 30 }}
@@ -191,7 +174,6 @@ export function Hero() {
         </div>
       </Container>
 
-      {/* Scroll cue */}
       <motion.div
         className="absolute bottom-7 left-1/2 -translate-x-1/2 z-[2] font-mono text-[0.7rem] text-slate flex flex-col items-center gap-2"
         initial={reduced ? {} : { opacity: 0 }}
@@ -204,25 +186,26 @@ export function Hero() {
     </section>
   );
 }
+
 // --- Terminal Card ---
 function TerminalCard() {
   const [typedLines, setTypedLines] = useState<string[]>([]);
 
-
-const lines: string[] = [
-  "$ whoami",
-  "Achla - full-stack & ai developer",
-  " ",
-  "$ cat stack.txt",
-  "laravel · react · nextjs · node.js",
-  "python · langchain · qdrant · fastapi · chromadb",
-  " ",
-  "$ cat experience.txt",
-  "5+ years · 15+ projects · 3 companies",
-  " ",
-  "$ echo $STATUS",
-  "freelancing + open to roles ✓",
-];
+  const lines: string[] = [
+    "$ whoami",
+    "Achla - full-stack & AI Engineer",
+    " ",
+    "$ cat stack.txt",
+    "laravel · react · nextjs · node.js",
+    "python · langchain · qdrant · fastapi",
+    " ",
+    "$ cat guardrails.txt",
+    "citation check · hallucination detector",
+    "confidence scoring",
+    " ",
+    "$ echo $STATUS",
+    "open to full-stack + ai roles ✓",
+  ];
 
   useEffect(() => {
     let currentLine = 0;
@@ -244,23 +227,18 @@ const lines: string[] = [
 
   return (
     <div className="w-[340px] bg-ink-2 border border-line-strong rounded-xl overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)]">
-      {/* Terminal header */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-line bg-ink-3/50">
         <span className="w-[10px] h-[10px] rounded-full bg-[#ff5f57]/70" />
         <span className="w-[10px] h-[10px] rounded-full bg-[#febc2e]/70" />
         <span className="w-[10px] h-[10px] rounded-full bg-[#28c840]/70" />
-        <span className="ml-3 font-mono text-[0.65rem] text-slate">
-          terminal - Achla
-        </span>
+        <span className="ml-3 font-mono text-[0.65rem] text-slate">terminal - Achla</span>
       </div>
 
-      {/* Terminal body */}
       <div className="p-4 min-h-[220px]">
         {typedLines.map((line, i) => {
           if (!line || line.trim() === "") {
             return <br key={i} />;
           }
-
           if (line.startsWith("$")) {
             return (
               <div key={i} className="font-mono text-[0.75rem] leading-relaxed">
@@ -268,7 +246,6 @@ const lines: string[] = [
               </div>
             );
           }
-
           if (line.includes("✓")) {
             return (
               <div key={i} className="font-mono text-[0.75rem] leading-relaxed">
@@ -276,7 +253,6 @@ const lines: string[] = [
               </div>
             );
           }
-
           return (
             <div key={i} className="font-mono text-[0.75rem] leading-relaxed">
               <span className="text-paper-dim">{line}</span>
@@ -284,14 +260,10 @@ const lines: string[] = [
           );
         })}
 
-        {/* Blinking cursor */}
         <motion.span
           className="inline-block w-[7px] h-[14px] bg-amber mt-1"
           animate={{ opacity: [1, 0] }}
-          transition={{
-            duration: 0.8, repeat: Infinity, ease: "linear",
-            repeatDelay: 0.4
-          }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: "linear", repeatDelay: 0.4 }}
         />
       </div>
     </div>

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/navigation";
 import { cn } from "@/lib/utils";
+import { Logo } from "../ui/Logo";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,20 +87,9 @@ export function Navbar() {
         )}
       >
         <nav className="flex items-center justify-between py-4 px-8 max-w-content mx-auto max-md:px-5">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-display text-[1.35rem] font-semibold relative z-[60] no-underline group"
-          >
-            <span className="relative">
-              Achla
-              <span className="text-amber transition-colors duration-300 group-hover:text-amber-soft">
-                .
-              </span>
-              dev
-            </span>
-          </Link>
-
+          <div className="relative z-[60]">
+            <Logo href="/" size="md" />
+          </div>
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center">
             {/* Nav pill container */}
@@ -302,6 +292,9 @@ export function Navbar() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
+                  <div className="mb-4">
+                    <Logo size="sm" />
+                  </div>
                   <p className="font-mono text-[0.72rem] text-slate m-0 mb-2">
                     Based in Christchurch, NZ
                   </p>

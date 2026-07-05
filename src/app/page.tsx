@@ -1,4 +1,5 @@
 "use client";
+
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -15,10 +16,7 @@ import { Contact } from "@/components/sections/Contact";
 
 // Client-only components
 const CustomCursor = dynamic(
-  () =>
-    import("@/components/effects/CustomCursor").then(
-      (mod) => mod.CustomCursor
-    ),
+  () => import("@/components/effects/CustomCursor").then((mod) => mod.CustomCursor),
   { ssr: false }
 );
 
@@ -28,12 +26,19 @@ const Hero = dynamic(
   { ssr: false }
 );
 
+
+const PageLoader = dynamic(
+  () => import("@/components/effects/PageLoader").then((mod) => mod.PageLoader),
+  { ssr: false }
+);
+
 export default function Home() {
   return (
-    <>
+    <PageLoader>
       <CustomCursor />
       <MeshGradient />
-      <GrainOverlay />
+      <GrainOverlay /> 
+
 
       <Navbar />
 
@@ -56,6 +61,6 @@ export default function Home() {
       </main>
 
       <Footer />
-    </>
+    </PageLoader>
   );
 }
