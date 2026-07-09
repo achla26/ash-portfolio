@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
-import { notes } from "@/data/notes";
+import { notes, getNoteCategories, getNotesByCategory } from "@/data/notes";
 import {
   FileText,
   FileCode,
@@ -14,7 +16,9 @@ import {
   BookOpen,
   CheckCircle2,
   Clock,
+  Sparkles,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 function getFormatIcon(format: string, size = 13) {
   switch (format) {
@@ -28,6 +32,15 @@ function getFormatIcon(format: string, size = 13) {
 }
 
 export default function NotesPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const categories = getNoteCategories();
+  const filteredNotes = getNotesByCategory(activeCategory);
+
+  const getCategoryCount = (cat: string) => {
+    if (cat === "All") return notes.length;
+    return notes.filter((n) => n.category === cat).length;
+  };
+
   return (
     <Section className="pt-12">
       <Container>
@@ -55,19 +68,25 @@ export default function NotesPage() {
               Learning in public.
             </h1>
             <p className="text-paper-dim text-[1.05rem] leading-[1.7] max-w-[56ch]">
-              Working notes while learning system design, AI, DevOps, and
-              backend engineering. Some are messy. All are real.
+              Working notes on system design, databases, networking, cloud, and
+              architecture. Some are interactive. All are real.
             </p>
           </div>
         </ScrollReveal>
 
         {/* Stats bar */}
         <ScrollReveal>
-          <div className="flex items-center gap-6 mb-10 pb-6 border-b border-line flex-wrap">
+          <div className="flex items-center gap-6 mb-8 pb-6 border-b border-line flex-wrap">
             <div className="flex items-center gap-2">
               <BookOpen size={16} className="text-amber" />
               <span className="font-mono text-[0.8rem] text-paper">
                 {notes.length} notes
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Sparkles size={16} className="text-mauve" />
+              <span className="font-mono text-[0.8rem] text-paper">
+                {notes.filter((n) => n.interactive).length} interactive
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -77,7 +96,7 @@ export default function NotesPage() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock size={16} className="text-mauve" />
+              <Clock size={16} className="text-amber" />
               <span className="font-mono text-[0.8rem] text-paper">
                 {notes.filter((n) => n.status === "In Progress").length} in
                 progress
@@ -86,14 +105,53 @@ export default function NotesPage() {
           </div>
         </ScrollReveal>
 
+        {/* Category filters */}
+        <ScrollReveal>
+          <div className="flex gap-2 flex-wrap mb-10">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={cn(
+                  "font-mono text-[0.75rem] px-4 py-[8px] rounded-lg border transition-all duration-200",
+                  activeCategory === cat
+                    ? "bg-amber text-ink border-amber font-semibold"
+                    : "bg-transparent text-paper-dim border-line-strong hover:border-amber/50 hover:text-paper"
+                )}
+              >
+                {cat}
+                <span
+                  className={cn(
+                    "ml-2 text-[0.65rem]",
+                    activeCategory === cat ? "text-ink/60" : "text-slate"
+                  )}
+                >
+                  {getCategoryCount(cat)}
+                </span>
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
+
         {/* Notes grid */}
-        <div className="grid grid-cols-3 gap-[22px] max-lg:grid-cols-2 max-sm:grid-cols-1">
-          {notes.map((note, i) => (
-            <ScrollReveal key={note.id} delay={i * 0.05}>
-              <a
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-3 gap-[22px] max-lg:grid-cols-2 max-sm:grid-cols-1"
+          >
+            {filteredNotes.map((note, i) => (
+              <motion.a
+                key={note.id}
                 href={note.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
                 className="group relative bg-card backdrop-blur-[12px] border border-line-strong rounded-[14px] p-6 transition-all duration-300 hover:border-amber/50 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] no-underline flex flex-col h-full min-h-[240px]"
               >
                 {/* Top row */}
@@ -101,10 +159,18 @@ export default function NotesPage() {
                   <span className="font-mono text-[0.65rem] text-paper-dim uppercase tracking-[0.06em]">
                     {note.category}
                   </span>
-                  <span className="font-mono text-[0.65rem] text-amber bg-amber/10 border border-amber/20 px-2 py-[3px] rounded-full flex items-center gap-[5px]">
-                    {getFormatIcon(note.format, 11)}
-                    {note.format}
-                  </span>
+                  <div className="flex items-center gap-[6px]">
+                    {note.interactive && (
+                      <span className="font-mono text-[0.6rem] text-mauve bg-mauve/10 border border-mauve/20 px-[6px] py-[2px] rounded-full flex items-center gap-[3px]">
+                        <Sparkles size={9} />
+                        Interactive
+                      </span>
+                    )}
+                    <span className="font-mono text-[0.65rem] text-amber bg-amber/10 border border-amber/20 px-2 py-[3px] rounded-full flex items-center gap-[5px]">
+                      {getFormatIcon(note.format, 11)}
+                      {note.format}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Title */}
@@ -146,10 +212,10 @@ export default function NotesPage() {
                     className="text-paper-dim group-hover:text-amber transition-all duration-300 group-hover:-translate-y-[2px] group-hover:translate-x-[2px]"
                   />
                 </div>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
+              </motion.a>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Disclaimer */}
         <ScrollReveal>
