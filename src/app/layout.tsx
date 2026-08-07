@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { inter, fraunces, jetbrainsMono } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import { FloatingChatButton } from "@/components/chat/FloatingChatButton";
 
 export const viewport: Viewport = {
   themeColor: "#0a0e13",
@@ -75,7 +76,9 @@ export default function RootLayout({
         jetbrainsMono.variable
       )}
     >
-      <body className="font-body">{children}</body>
+      <body className="font-body">{children}
+        <FloatingChatButton />
+      </body>
     </html>
   );
 }

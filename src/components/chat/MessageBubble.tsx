@@ -1,0 +1,98 @@
+"use client";
+
+import { Message } from "@/types/chat";
+import { cn } from "@/lib/utils";
+import { RetrievalPeek } from "./RetrievalPeek";
+import { TypingIndicator } from "./TypingIndicator";
+import { MarkdownRenderer } from "./MarkdownRenderer";
+import { CopyButton } from "./CopyButton";
+import { formatMessageTime } from "@/utils/dateHelpers";
+
+interface Props {
+  message: Message;
+}
+
+export function MessageBubble({ message }: Props) {
+  const isUser = message.role === "user";
+
+  return (
+    <div
+      className={cn(
+        "flex gap-3 mb-6 group",
+        isUser ? "flex-row-reverse" : "flex-row"
+      )}
+    >
+      {/* Avatar */}
+      <div
+        className={cn(
+          "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-mono text-[0.75rem] font-semibold",
+          isUser
+            ? "bg-mauve/20 text-mauve border border-mauve/30"
+            : "bg-amber/20 text-amber border border-amber/30"
+        )}
+      >
+        {isUser ? "You" : "AI"}
+      </div>
+
+      {/* Message content */}
+      <div
+        className={cn(
+          "flex flex-col max-w-[75%] max-md:max-w-[85%]",
+          isUser ? "items-end" : "items-start"
+        )}
+      >
+        <div
+          className={cn(
+            "rounded-2xl px-4 py-3 text-[0.92rem] leading-relaxed relative",
+            isUser
+              ? "bg-mauve/10 border border-mauve/20 text-paper rounded-tr-sm"
+              : "bg-card border border-line-strong text-paper rounded-tl-sm"
+          )}
+        >
+          {message.isLoading ? (
+            message.content ? (
+              <div className="flex items-center gap-2">
+                <TypingIndicator />
+                <span className="text-[0.85rem] text-paper-dim">
+                  {message.content}
+                </span>
+              </div>
+            ) : (
+              <TypingIndicator />
+            )
+          ) : isUser ? (
+            <div className="whitespace-pre-wrap break-words">
+              {message.content}
+            </div>
+          ) : (
+            <MarkdownRenderer content={message.content} />
+          )}
+        </div>
+
+        {/* Actions bar (Copy button + Timestamp) */}
+        {!message.isLoading && (
+          <div
+            className={cn(
+              "flex items-center gap-2 mt-1.5 px-1",
+              isUser ? "flex-row-reverse" : "flex-row"
+            )}
+          >
+            <span className="font-mono text-[0.65rem] text-slate">
+              {formatMessageTime(message.timestamp)}
+            </span>
+
+            {/* Copy button - only show on hover */}
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+              <CopyButton text={message.content} />
+            </div>
+          </div>
+        )}
+
+        {/* Retrieval peek (only for AI messages) */}
+        {!isUser && message.retrieved && !message.isLoading && (
+          <RetrievalPeek chunks={message.retrieved} />
+        )}
+      </div>
+    </div>
+  );
+}
