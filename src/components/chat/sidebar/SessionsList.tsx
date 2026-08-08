@@ -38,7 +38,7 @@ export function SessionsList({
   }
 
   return (
-    <div className="flex-1 overflow-y-auto px-3 pb-4">
+    <div className="flex-1 overflow-y-auto px-3 pb-4 subtle-scrollbar">
       {groups.map(
         (group) =>
           group.items.length > 0 && (

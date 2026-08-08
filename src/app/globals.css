@@ -22,7 +22,37 @@
     background: rgba(212, 162, 76, 0.4);
   }
 
-  /* Smooth scroll */
+  /* Subtle scrollbar for textareas and specific inputs */
+  textarea::-webkit-scrollbar,
+  .subtle-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  textarea::-webkit-scrollbar-track,
+  .subtle-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  textarea::-webkit-scrollbar-thumb,
+  .subtle-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(236, 228, 214, 0.1);
+    border-radius: 2px;
+  }
+
+  textarea::-webkit-scrollbar-thumb:hover,
+  .subtle-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(236, 228, 214, 0.2);
+  }
+
+  /* Firefox support */
+  textarea,
+  .subtle-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(236, 228, 214, 0.1) transparent;
+  }
+
+  /* Rest of your existing styles... */
   html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;

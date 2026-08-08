@@ -10,6 +10,7 @@ import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { useRAGEngine } from "@/hooks/useRAGEngine";
 import { demoPresets } from "@/data/demo";
 import { TypewriterText } from "./TypewriterText";
+import Link from "next/link";
 
 export function LiveDemo() {
   const [query, setQuery] = useState("");
@@ -123,17 +124,73 @@ export function LiveDemo() {
 
                 {/* Synthesized answer */}
                 <div>
-                  <h5 className="font-mono text-[0.7rem] uppercase tracking-[0.06em] text-slate m-0 mb-[14px]">
-                    Synthesized answer
-                  </h5>
-                  <div className="border border-line-strong rounded-[10px] p-[18px] bg-gradient-to-br from-amber/[0.06] to-transparent min-h-[120px] text-[0.92rem] text-paper">
-                    {!result ? (
-                      <span className="text-slate font-mono text-[0.82rem]">
-                        Waiting on a query...
-                      </span>
-                    ) : (
-                      <TypewriterText text={result.answer} />
-                    )}
+                  <div>
+                    <h5 className="font-mono text-[0.7rem] uppercase tracking-[0.06em] text-slate m-0 mb-[14px]">
+                      Synthesized answer
+                    </h5>
+                    <div className="border border-line-strong rounded-[10px] p-[18px] bg-gradient-to-br from-amber/[0.06] to-transparent min-h-[120px] text-[0.92rem] text-paper">
+                      {!result ? (
+                        <span className="text-slate font-mono text-[0.82rem]">
+                          Waiting on a query...
+                        </span>
+                      ) : (
+                        <TypewriterText text={result.answer} />
+                      )}
+                    </div>
+                  </div>
+                  {/* NEW: CTA for full chat */}
+                  <div className="mt-8 pt-6 border-t border-line">
+                    <div className="bg-gradient-to-br from-amber/10 to-mauve/5 border border-amber/20 rounded-xl p-6 max-md:p-4">
+                      <div className="flex items-start justify-between gap-6 flex-wrap max-md:flex-col">
+                        <div className="flex-1 min-w-[280px]">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-lg">✨</span>
+                            <h4 className="font-display text-[1.1rem] font-semibold text-paper m-0">
+                              Want the full experience?
+                            </h4>
+                          </div>
+                          <p className="text-paper-dim text-[0.9rem] leading-relaxed mb-3">
+                            The demo above runs client-side for speed. For the full conversation
+                            experience with streaming responses, chat history, and my complete
+                            knowledge base, try the full chat interface.
+                          </p>
+                          <div className="flex flex-wrap gap-3 mt-3">
+                            <span className="font-mono text-[0.7rem] text-slate">
+                              ● Python + FastAPI backend
+                            </span>
+                            <span className="font-mono text-[0.7rem] text-slate">
+                              ● Groq LLM (Llama 3.3)
+                            </span>
+                            <span className="font-mono text-[0.7rem] text-slate">
+                              ● Real-time streaming
+                            </span>
+                          </div>
+                        </div>
+
+                        <Link href="/chat" className="flex-shrink-0">
+                          <button
+                            type="button"
+                            className="group bg-amber hover:bg-amber-soft text-ink font-mono text-[0.85rem] font-semibold py-3 px-5 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+                          >
+                            <span>Open full chat</span>
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="group-hover:translate-x-0.5 transition-transform"
+                            >
+                              <line x1="5" y1="12" x2="19" y2="12" />
+                              <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
