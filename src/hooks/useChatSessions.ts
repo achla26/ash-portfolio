@@ -74,9 +74,9 @@ export function useChatSessions() {
     (message: Message) => {
       const currentActiveId = activeSessionIdRef.current;
       
-      console.log("📝 addMessage called");
-      console.log("   - Active ID (ref):", currentActiveId);
-      console.log("   - Message:", message);
+      // console.log("📝 addMessage called");
+      // console.log("   - Active ID (ref):", currentActiveId);
+      // console.log("   - Message:", message);
       
       if (!currentActiveId) {
         console.warn("⚠️ No active session, message not added");
@@ -84,7 +84,7 @@ export function useChatSessions() {
       }
 
       setSessions((prev) => {
-        console.log("   - Previous sessions count:", prev.length);
+        // console.log("   - Previous sessions count:", prev.length);
         
         const updated = prev.map((session) => {
           if (session.id !== currentActiveId) return session;
@@ -105,7 +105,7 @@ export function useChatSessions() {
             updatedAt: new Date().toISOString(),
           };
           
-          console.log("   - Updated session messages count:", updatedSession.messages.length);
+          // console.log("   - Updated session messages count:", updatedSession.messages.length);
           return updatedSession;
         });
         

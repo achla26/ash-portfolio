@@ -86,7 +86,7 @@ export function ChatContainer() {
       await sendChatMessageStream(query, {
         onSlowResponse: () => {
           updateMessage(assistantMessageId, {
-            content: "⏳ Waking up the AI backend... First response takes ~30 seconds.",
+            content: "⏳ Waking up the AI backend... First response takes few seconds.",
             isLoading: true,
           });
         },
