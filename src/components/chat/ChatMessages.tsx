@@ -26,7 +26,7 @@ export function ChatMessages({ messages, onQuestionSelect, isStreaming }: Props)
     const threshold = 100; // pixels from bottom
     const distanceFromBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight;
-
+    
     const atBottom = distanceFromBottom < threshold;
     setIsAtBottom(atBottom);
     setShowScrollButton(!atBottom && messages.length > 0);
@@ -41,7 +41,7 @@ export function ChatMessages({ messages, onQuestionSelect, isStreaming }: Props)
     return () => container.removeEventListener("scroll", checkIfAtBottom);
   }, [messages.length]);
 
-  // ✅ Scroll only on new message (not on every token)
+  // Scroll on new message
   useEffect(() => {
     if (isAtBottom) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,16 +52,14 @@ export function ChatMessages({ messages, onQuestionSelect, isStreaming }: Props)
   useEffect(() => {
     if (!isStreaming || !isAtBottom) return;
 
-    let rafId: number;
     const scroll = () => {
       bottomRef.current?.scrollIntoView({ behavior: "auto" });
     };
 
-    const interval = setInterval(scroll, 500); // Every 500ms during streaming
+    const interval = setInterval(scroll, 500);
 
     return () => {
       clearInterval(interval);
-      cancelAnimationFrame(rafId);
     };
   }, [isStreaming, isAtBottom]);
 
