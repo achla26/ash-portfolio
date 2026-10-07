@@ -51,7 +51,7 @@ export function About() {
                   <FactItem label="Experience" value="5+ years" />
                   <FactItem label="Education" value="MCA" />
                   <FactItem label="Side work" value="Freelancing" />
-                  <FactItem label="Focus" value="Full-stack + AI" />
+                  <FactItem label="Focus" value="Data + AI" />
                 </div>
               </div>
             </div>

@@ -24,9 +24,9 @@ export function Contact() {
               Let&apos;s build something.
             </h2>
             <p className="text-paper-dim max-w-[46ch] mx-auto mb-[30px]">
-              Open to mid-level full-stack and AI engineering roles in
-              Christchurch and remote. Also available for
-              freelance projects. Reach out directly - I read everything myself.
+              Open to data, AI and full-stack engineering roles in
+              Christchurch and remote (NZ Permanent Resident). Also available
+              for freelance projects. Reach out directly - I read everything myself.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Button href="mailto:achlar8@gmail.com" variant="primary">

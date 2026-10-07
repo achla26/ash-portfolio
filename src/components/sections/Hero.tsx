@@ -193,11 +193,12 @@ function TerminalCard() {
 
   const lines: string[] = [
     "$ whoami",
-    "Achla - full-stack & AI Engineer",
+    "Achla - Software & Data Engineer",
     " ",
     "$ cat stack.txt",
     "laravel · react · nextjs · node.js",
     "python · langchain · qdrant · fastapi",
+    "dbt · airflow · duckdb · sql",
     " ",
     "$ cat guardrails.txt",
     "citation check · hallucination detector",

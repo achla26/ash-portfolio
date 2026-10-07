@@ -6,6 +6,28 @@ export const allProjects: Project[] = [
   // AI & DATA PROJECTS (Featured)
   // ============================================
   {
+    id: "shaky-isles",
+    title: "Shaky Isles - NZ Quake Pipeline",
+    description:
+      "Hourly NZ earthquake pipeline: GeoNet API to bronze JSON, idempotent DuckDB loads deduped on quake ID, dbt staging plus daily-counts mart with 5/5 tests passing. Scheduled green runs on GitHub Actions plus an Airflow DAG version.",
+    category: "Data Engineering",
+    techStack: ["Python", "DuckDB", "dbt", "Airflow", "GitHub Actions"],
+    features: [
+      "Hourly GeoNet API ingestion",
+      "Bronze JSON raw storage",
+      "Idempotent quake-ID dedup loads",
+      "dbt staging + daily mart",
+      "5/5 dbt tests passing",
+      "GitHub Actions green runs",
+      "Airflow DAG version",
+      "Documented debugging record",
+    ],
+    github: "https://github.com/achla26/shaky-isles",
+    featured: true,
+    status: "completed",
+    year: "2026",
+  },
+  {
     id: "rag-handbook",
     title: "AI Handbook Q&A System",
     description:
@@ -346,6 +368,7 @@ export const getProjectType = (
   id: string
 ): { type: string; isPersonal: boolean } => {
   const personalIds = [
+    "shaky-isles",
     "rag-handbook",
     "resume-matcher",
     "walmart-analysis",
@@ -372,6 +395,12 @@ export const getProjectRole = (category: string): string => {
 // PROJECT METRICS
 // ============================================
 export const projectMetrics: Record<string, ProjectMetric[]> = {
+  "shaky-isles": [
+    { label: "Schedule", value: "Hourly" },
+    { label: "dbt Tests", value: "5/5" },
+    { label: "CI Runs", value: "Green" },
+    { label: "Dedup Key", value: "Quake ID" },
+  ],
   "rag-handbook": [
     { label: "Test Accuracy", value: "100%" },
     { label: "Avg Latency", value: "1.01s" },
@@ -408,6 +437,16 @@ export const projectMetrics: Record<string, ProjectMetric[]> = {
 // PROJECT INSIGHTS
 // ============================================
 export const projectInsights: Record<string, ProjectInsight> = {
+  "shaky-isles": {
+    title: "Pipeline Highlights",
+    items: [
+      "Bronze keeps raw GeoNet JSON as-is - never transformed",
+      "Loads deduped on quake publicID - run twice, same count",
+      "Staging parses JSON with json_extract plus proper casts",
+      "Retries on extract/load, zero retries on dbt (bugs, not flakes)",
+      "Debugging record in LEARNED.md: bytes, cwd, profiles",
+    ],
+  },
   "rag-handbook": {
     title: "System Guardrails",
     items: [

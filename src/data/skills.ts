@@ -18,6 +18,9 @@ export const skillNodes: SkillNode[] = [
   { id: "sql", label: "SQL", x: 340, y: 330, tags: "sql database mysql postgresql" },
   { id: "streamlit", label: "Streamlit", x: 680, y: 260, tags: "streamlit python ui frontend" },
   { id: "docker", label: "Docker", x: 700, y: 350, tags: "docker devops containers tools" },
+  { id: "dbt", label: "dbt", x: 390, y: 395, tags: "dbt data transformation sql warehouse" },
+  { id: "airflow", label: "Airflow", x: 560, y: 385, tags: "airflow orchestration pipelines schedule" },
+  { id: "duckdb", label: "DuckDB", x: 270, y: 400, tags: "duckdb database sql analytics" },
 ];
 
 export const skillEdges: SkillEdge[] = [
@@ -44,4 +47,9 @@ export const skillEdges: SkillEdge[] = [
   { from: "pandas", to: "sql" },
   { from: "sql", to: "docker" },
   { from: "streamlit", to: "docker" },
+  { from: "python", to: "dbt" },
+  { from: "sql", to: "dbt" },
+  { from: "python", to: "airflow" },
+  { from: "airflow", to: "docker" },
+  { from: "sql", to: "duckdb" },
 ];
