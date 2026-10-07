@@ -34,3 +34,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Connect the separately deployed Python API
+
+The frontend calls the FastAPI backend directly; the apps do not need to share
+a domain or port.
+
+1. In the frontend Vercel project, set `NEXT_PUBLIC_API_URL` to the backend
+   deployment URL (for example, `https://your-api.vercel.app`), without a
+   trailing slash.
+2. In the backend Vercel project, set `ALLOWED_ORIGIN` to the frontend
+   deployment origin (for example, `https://your-site.vercel.app`), without a
+   trailing slash. Also set `GROQ_API_KEY` and `COHERE_API_KEY` there.
+3. Redeploy both projects after setting their environment variables.
+
+For local development, set `NEXT_PUBLIC_API_URL=http://localhost:8000` in
+`.env.local`, run FastAPI on port 8000, and run Next.js on port 3000.
+
+The backend initializes document embeddings when a function instance starts.
+Its in-memory rate limiter is per instance, so its limits are not shared across
+Vercel instances.
